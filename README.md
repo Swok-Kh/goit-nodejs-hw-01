@@ -14,3 +14,26 @@
 - Option: **-n**, **--name**. Contact's name. Used to add contact.
 - Option: **-e**, **--email**. Contact's email. Used to add contact.
 - Option: **-p**, **--phone**. Contact's phone. Used to add contact.
+
+**Examples:**
+
+> _node index.js -a list_
+
+![list](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/list.jpg?raw=true)
+
+> _node index.js -action get -id 5_
+
+![get](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/get.jpg?raw=true)
+
+> _node index.js --action "add" --name "Mango" --email "mango@gmail.com" --phone
+> "322-22-22"_
+
+![add](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/add.jpg?raw=true)
+
+> _node index.js --action="remove" --id=3_
+
+![remove](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/remove.jpg?raw=true)
+
+**Error examples:**
+
+![errors](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/errors.jpg?raw=true)
