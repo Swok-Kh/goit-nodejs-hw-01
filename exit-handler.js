@@ -1,5 +1,6 @@
 const { successMessage, errorMessage } = require('./utils/message')
 
+// Error handling on exit
 process.on('exit', code => {
   switch (code) {
     case 0:

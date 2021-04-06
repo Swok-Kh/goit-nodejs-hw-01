@@ -4,8 +4,8 @@ const { successMessage } = require('./utils/message')
 
 const contactsPath = path.normalize('./db/contacts.json')
 
-// TODO: задокументировать каждую функцию
-function listContacts() {
+// Prints a list of contacts to the console.
+const listContacts = () => {
   fs.readFile(contactsPath, (err, data) => {
     if (err) {
       process.exit(1000)
@@ -14,7 +14,8 @@ function listContacts() {
   })
 }
 
-function getContactById(contactId) {
+// Displays the contact found by id to the console.
+const getContactById = contactId => {
   fs.readFile(contactsPath, (err, data) => {
     if (err) {
       process.exit(1000)
@@ -26,6 +27,7 @@ function getContactById(contactId) {
   })
 }
 
+// Removes contact found by id.
 function removeContact(contactId) {
   fs.readFile(contactsPath, (err, data) => {
     if (err) {
@@ -47,6 +49,7 @@ function removeContact(contactId) {
   })
 }
 
+// Adds contact. Required data: name, email address, phone.
 function addContact(name, email, phone) {
   fs.readFile(contactsPath, (err, data) => {
     if (err) {
@@ -56,12 +59,14 @@ function addContact(name, email, phone) {
     const id = contacts[contacts.length - 1].id + 1
     contacts.push({ id, name, email, phone })
 
-    fs.writeFile(contactsPath, JSON.stringify(contacts), err => {
-      if (err) {
-        process.exit(1001)
-      }
-      successMessage('Contact was added. Saved successfully!')
-    })
+    if (name && email && phone) {
+      fs.writeFile(contactsPath, JSON.stringify(contacts), err => {
+        if (err) {
+          process.exit(1001)
+        }
+        successMessage('Contact was added. Saved successfully!')
+      })
+    }
   })
 }
 

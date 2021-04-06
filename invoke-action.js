@@ -5,6 +5,7 @@ const {
   addContact
 } = require('./contacts')
 
+// Calls an action when the application starts
 const invokeAction = ({ action, id, name, email, phone }) => {
   switch (action) {
     case 'list':
