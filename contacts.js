@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { successMessage } = require('./utils/message')
 
 const contactsPath = path.normalize('./db/contacts.json')
 
@@ -39,7 +40,7 @@ function removeContact(contactId) {
       if (err) {
         process.exit(1001)
       }
-      console.log(
+      successMessage(
         `Contact with id ${contactId} was deleted. Saved successfully!`
       )
     })
@@ -59,7 +60,7 @@ function addContact(name, email, phone) {
       if (err) {
         process.exit(1001)
       }
-      console.log('Contact was added. Saved successfully!')
+      successMessage('Contact was added. Saved successfully!')
     })
   })
 }
