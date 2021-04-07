@@ -29,10 +29,11 @@ const getContactById = contactId => {
     if (err) {
       process.exit(1000)
     }
-    if (!data.toString()) {
+    const rawData = data.toString()
+    if (!rawData) {
       process.exit(1002)
     }
-    const contacts = JSON.parse(data.toString())
+    const contacts = JSON.parse(rawData)
     const foundContact = contacts.find(({ id }) => id === contactId)
     if (foundContact) console.table([foundContact])
     else process.exit(1006)
@@ -45,10 +46,11 @@ function removeContact(contactId) {
     if (err) {
       process.exit(1000)
     }
-    if (!data.toString()) {
+    const rawData = data.toString()
+    if (!rawData) {
       process.exit(1002)
     }
-    const contacts = JSON.parse(data.toString())
+    const contacts = JSON.parse(rawData)
     const filteredContacts = contacts.filter(({ id }) => id !== contactId)
     if (contacts.length === filteredContacts.length) {
       process.exit(1006)
@@ -70,13 +72,14 @@ function addContact(name, email, phone) {
     if (err) {
       process.exit(1000)
     }
+    const rawData = data.toString()
     let contacts
     let id
-    if (!data.toString()) {
+    if (!rawData) {
       contacts = []
       id = 1
     } else {
-      contacts = JSON.parse(data.toString())
+      contacts = JSON.parse(rawData)
       id = contacts.length === 0 ? 1 : contacts[contacts.length - 1].id + 1
     }
 
