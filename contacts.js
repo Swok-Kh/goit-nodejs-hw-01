@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const { successMessage } = require('./utils/message')
 
-const contactsPath = path.normalize('./db/contacts.json')
+const contactsPath = path.resolve('./db/contacts.json')
 
 // Prints a list of contacts to the console.
 const listContacts = () => {
@@ -10,7 +10,16 @@ const listContacts = () => {
     if (err) {
       process.exit(1000)
     }
-    console.table(JSON.parse(data.toString()))
+    const rawData = data.toString()
+    if (!rawData) {
+      process.exit(1002)
+    }
+    const contacts = JSON.parse(rawData)
+    if (contacts.length === 0) {
+      successMessage('Contacts list is empty!')
+      return
+    }
+    console.table(contacts)
   })
 }
 
@@ -20,10 +29,13 @@ const getContactById = contactId => {
     if (err) {
       process.exit(1000)
     }
+    if (!data.toString()) {
+      process.exit(1002)
+    }
     const contacts = JSON.parse(data.toString())
     const foundContact = contacts.find(({ id }) => id === contactId)
     if (foundContact) console.table([foundContact])
-    else process.exit(1002)
+    else process.exit(1006)
   })
 }
 
@@ -33,10 +45,13 @@ function removeContact(contactId) {
     if (err) {
       process.exit(1000)
     }
+    if (!data.toString()) {
+      process.exit(1002)
+    }
     const contacts = JSON.parse(data.toString())
     const filteredContacts = contacts.filter(({ id }) => id !== contactId)
     if (contacts.length === filteredContacts.length) {
-      process.exit(1002)
+      process.exit(1006)
     }
     fs.writeFile(contactsPath, JSON.stringify(filteredContacts), err => {
       if (err) {
@@ -55,11 +70,18 @@ function addContact(name, email, phone) {
     if (err) {
       process.exit(1000)
     }
-    const contacts = JSON.parse(data.toString())
-    const id = contacts[contacts.length - 1].id + 1
-    contacts.push({ id, name, email, phone })
+    let contacts
+    let id
+    if (!data.toString()) {
+      contacts = []
+      id = 1
+    } else {
+      contacts = JSON.parse(data.toString())
+      id = contacts.length === 0 ? 1 : contacts[contacts.length - 1].id + 1
+    }
 
     if (name && email && phone) {
+      contacts.push({ id, name, email, phone })
       fs.writeFile(contactsPath, JSON.stringify(contacts), err => {
         if (err) {
           process.exit(1001)

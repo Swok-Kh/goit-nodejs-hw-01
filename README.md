@@ -34,6 +34,15 @@
 
 ![remove](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/remove.jpg?raw=true)
 
+## Error codes
+
+- **1000**: _Read file error!_
+- **1001**: _Write file error!_
+- **1002**: _Empty file!_
+- **1004**: _Unknown action type!_
+- **1005**: _Wrong parameters!_
+- **1006**: _Contact not found._
+
 **Error examples:**
 
 ![errors](https://github.com/swok-kh/goit-nodejs-hw-01/blob/main/screenshots/errors.jpg?raw=true)
